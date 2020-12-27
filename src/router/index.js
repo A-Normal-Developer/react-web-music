@@ -9,6 +9,10 @@ const routes = [
     component: RHDiscover
   },
   {
+    path: "/discover",
+    component: RHDiscover
+  },
+  {
     path: "/mine",
     component: RHMine
   },
