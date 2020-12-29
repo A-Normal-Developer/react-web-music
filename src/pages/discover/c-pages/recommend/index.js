@@ -7,7 +7,7 @@ import { getTopBannerAction } from "./store/actionCreators";
 const RHRecommend = (props) => {
 
   const {topBanners} = useSelector(state => ({
-    topBanners: state.recommend.topBanners
+    topBanners: state.getIn(["recommend", "topBanners"])
   }), shallowEqual);
 
   const dispatch = useDispatch();
