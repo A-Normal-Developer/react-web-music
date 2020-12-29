@@ -18,7 +18,7 @@ const changeHotRecommendAction = res => ({
 
 const changeNewAlbumAction = res => ({
   type: actionTypes.CHANGE_NEW_ALBUMS,
-  hotRecommends: res.result
+  newAlbums: res.albums
 });
 
 
