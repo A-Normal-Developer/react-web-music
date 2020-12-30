@@ -4,6 +4,9 @@ import RHTopBanner from "./c-cpns/top-banner";
 import RHHotRecommend from "./c-cpns/hot-recommend";
 import RHNewAlbum from "./c-cpns/new-album";
 import RHRecommendRanking from "./c-cpns/recommend-ranking";
+import RHUserLogin from "./c-cpns/user-login";
+import RHSettleSinger from "./c-cpns/settle-singer";
+import RHHotAnchor from "./c-cpns/hot-anchor";
 
 import {
   RecommendWrapper,
@@ -24,7 +27,11 @@ const RHRecommend = (props) => {
           <RHNewAlbum/>
           <RHRecommendRanking/>
         </RecommendLeft>
-        <RecommendRight></RecommendRight>
+        <RecommendRight>
+          <RHUserLogin/>
+          <RHSettleSinger/>
+          <RHHotAnchor/>
+        </RecommendRight>
       </Content>
     </RecommendWrapper>
   );

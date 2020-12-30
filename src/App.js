@@ -8,6 +8,7 @@ import routes from "./router";
 import store from "./store";
 import RHAppFooter from "@/components/app-footer";
 import RHAppHeader from "@/components/app-header";
+import RHAppPlayerBar from "@/pages/player/app-player-bar";
 
 const App = memo(() => {
   return (
@@ -16,6 +17,7 @@ const App = memo(() => {
         <RHAppHeader/>
         {renderRoutes(routes)}
         <RHAppFooter/>
+        <RHAppPlayerBar/>
       </HashRouter>
     </Provider>
   );
