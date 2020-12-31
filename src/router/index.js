@@ -9,6 +9,7 @@ import RHSongs from "@/pages/discover/c-pages/songs";
 import RHDjRadio from "@/pages/discover/c-pages/djradio";
 import RHArist from "@/pages/discover/c-pages/artist";
 import RHAlbum from "@/pages/discover/c-pages/album";
+import RHPlayer from "@/pages/player";
 
 const routes = [
   {
@@ -52,6 +53,10 @@ const routes = [
       {
         path: "/discover/album",
         component: RHAlbum
+      },
+      {
+        path: "/discover/player",
+        component: RHPlayer
       },
     ]
   },
