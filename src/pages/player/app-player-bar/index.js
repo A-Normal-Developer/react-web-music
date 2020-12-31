@@ -56,6 +56,10 @@ const RHAppPlayerBar = memo(() => {
     setIsPlaying(!isPlaying);
   };
 
+  const showTipCurrentTime = () => {
+    return showCurrentTime;
+  };
+
   const timeUpdate = e => {
     if (!isChanging) {
       setCurrentTime(e.target.currentTime * 1000);
@@ -102,7 +106,7 @@ const RHAppPlayerBar = memo(() => {
               <a href="/#" className="singer-name">{singerName}</a>
             </div>
             <div className="progress">
-              <Slider defaultValue={0} value={progress}  onChange={sliderChange} onAfterChange={sliderAfterChange} />
+              <Slider tipFormatter={showTipCurrentTime} value={progress}  onChange={sliderChange} onAfterChange={sliderAfterChange} />
               <div className="time">
                 <span className="now-time">{showCurrentTime}</span>
                 <span className="divider">/</span>
