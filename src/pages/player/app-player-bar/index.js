@@ -73,7 +73,7 @@ const RHAppPlayerBar = memo(() => {
   const sliderAfterChange = useCallback(value => {
     const currentTime = value / 100 * duration / 1000;
     audioRef.current.currentTime = currentTime;
-    setCurrentTime(currentTime * 1000)
+    setCurrentTime(currentTime * 1000);
     setIsChanging(false);
 
     if (!isPlaying) {
