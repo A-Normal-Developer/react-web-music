@@ -17,11 +17,13 @@ import {
 } from "./style";
 
 
+
 const RHAppPlayerBar = memo(() => {
   // state and props
   const [currentTime, setCurrentTime] = useState(0);
   const [progress, setProgress] = useState(0);
   const [isChanging, setIsChanging] = useState(false);
+  const [isPlaying, setIsPlaying] = useState(false);
 
   // redux hooks
   const {currentSong} = useSelector(state => ({
@@ -33,6 +35,10 @@ const RHAppPlayerBar = memo(() => {
   useEffect(() => {
     dispatch(getSongDetailAction(167876))
   },[dispatch]);
+
+  useEffect(() => {
+    audioRef.current.src = getPlaySong(currentSong.id);
+  }, [currentSong]);
 
   const audioRef = useRef();
 
@@ -46,34 +52,40 @@ const RHAppPlayerBar = memo(() => {
 
   // handle function
   const playMusic = () => {
-    audioRef.current.src = getPlaySong(currentSong.id);
-    audioRef.current.play();
+    isPlaying? audioRef.current.pause() : audioRef.current.play();
+    setIsPlaying(!isPlaying);
   };
 
   const timeUpdate = e => {
-    setCurrentTime(e.target.currentTime * 1000);
     if (!isChanging) {
+      setCurrentTime(e.target.currentTime * 1000);
       setProgress(currentTime / duration * 100);
     }
   };
 
   const sliderChange = useCallback(value => {
     setIsChanging(true);
+    const currentTime = value / 100 * duration;
+    setCurrentTime(currentTime);
     setProgress(value);
-  },[]);
+  },[duration]);
 
   const sliderAfterChange = useCallback(value => {
     const currentTime = value / 100 * duration / 1000;
     audioRef.current.currentTime = currentTime;
     setCurrentTime(currentTime * 1000)
     setIsChanging(false);
-  },[duration]);
+
+    if (!isPlaying) {
+      playMusic();
+    }
+  },[duration, isPlaying, playMusic]);
 
 
   return (
     <PlaybarWrapper className="sprite_playbar">
       <div className="content wrap-v2">
-        <Control>
+        <Control isPlaying={isPlaying}>
           <button className="sprite_playbar prev"></button>
           <button className="sprite_playbar play" onClick={e => playMusic()}></button>
           <button className="sprite_playbar next"></button>
