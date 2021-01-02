@@ -29,6 +29,11 @@ const changeLyricListAction = lyricList => ({
   lyricList
 });
 
+export const changeLyricIndexAction = currentLyricIndex => ({
+  type: actionTypes.CHANGE_CURRENT_LYRIC_INDEX,
+  currentLyricIndex
+});
+
 
 // 对外暴露的action
 export const changeSequenceAction = sequence => ({

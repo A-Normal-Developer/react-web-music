@@ -2,11 +2,12 @@ import React, { memo, useCallback, useEffect, useRef, useState } from 'react';
 import { NavLink } from "react-router-dom";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 
-import { Slider } from 'antd';
+import { Slider, message } from 'antd';
 import {
   getSongDetailAction,
   changeSequenceAction,
-  changeCurrentIndexAndSongAction
+  changeCurrentIndexAndSongAction,
+  changeLyricIndexAction
 } from "../store/actionCreators";
 
 import {
@@ -32,10 +33,18 @@ const RHAppPlayerBar = memo(() => {
   const [isPlaying, setIsPlaying] = useState(false);
 
   // redux hooks
-  const {currentSong, sequence, playList} = useSelector(state => ({
+  const {
+    currentSong,
+    sequence,
+    playList,
+    lyricList,
+    currentLyricIndex
+  } = useSelector(state => ({
     currentSong: state.getIn(["player", "currentSong"]),
     sequence: state.getIn(["player", "sequence"]),
-    playList: state.getIn(["player", "playList"])
+    playList: state.getIn(["player", "playList"]),
+    lyricList: state.getIn(["player", "lyricList"]),
+    currentLyricIndex: state.getIn(["player", "currentLyricIndex"])
   }), shallowEqual);
 
   const dispatch = useDispatch();
@@ -78,6 +87,24 @@ const RHAppPlayerBar = memo(() => {
       setCurrentTime(e.target.currentTime * 1000);
       setProgress(currentTime / duration * 100);
     }
+
+    // 获取当前歌词
+    let i = 0;
+    for (; i < lyricList.length; i++) {
+      if (e.target.currentTime * 1000 < lyricList[i].time) {
+        break;
+      }
+    }
+
+    if (currentLyricIndex !== i - 1) {
+      dispatch(changeLyricIndexAction(i - 1));
+      message.open({
+        key: "lyric",
+        content: lyricList[i - 1] && lyricList[i - 1].content,
+        duration: 0
+      })
+    }
+
   };
 
   const handleMusicEnded = e => {
