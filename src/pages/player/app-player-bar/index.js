@@ -50,7 +50,7 @@ const RHAppPlayerBar = memo(() => {
   const dispatch = useDispatch();
   // other hooks
   useEffect(() => {
-    dispatch(getSongDetailAction(167876))
+    dispatch(getSongDetailAction(1407551413))
   },[dispatch]);
 
   useEffect(() => {
